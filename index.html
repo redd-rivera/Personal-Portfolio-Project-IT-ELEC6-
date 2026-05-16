@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Randel Redd B. Rivera — IT Portfolio</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --bg:       #f7f5fc;
+      --surface:  #ffffff;
+      --ink:      #1a1520;
+      --muted:    #7a6e8a;
+      --accent:   #6c3bbf;
+      --accent2:  #c4b0e8;
+      --border:   #e2d9f3;
+      --radius:   12px;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--bg);
+      color: var(--ink);
+      font-size: 16px;
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 18px 48px;
+      background: rgba(245,243,239,0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-logo {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.1rem;
+      letter-spacing: 0.02em;
+      color: var(--ink);
+      text-decoration: none;
+    }
+    .nav-links { display: flex; gap: 32px; list-style: none; }
+    .nav-links a {
+      text-decoration: none;
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: var(--muted);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      transition: color 0.25s;
+    }
+    .nav-links a:hover { color: var(--accent); }
+
+    /* ── HERO ── */
+    #hero {
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      align-items: center;
+      padding: 100px 48px 60px;
+      gap: 48px;
+      position: relative;
+      overflow: hidden;
+    }
+    #hero::before {
+      content: '';
+      position: absolute;
+      top: -120px; right: -120px;
+      width: 520px; height: 520px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(200,184,154,0.22) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    #hero::after {
+      content: '';
+      position: absolute;
+      bottom: -80px; left: -80px;
+      width: 380px; height: 380px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(42,96,73,0.08) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .hero-text { animation: fadeUp 0.9s ease both; }
+    .hero-eyebrow {
+      display: inline-flex; align-items: center; gap: 10px;
+      font-size: 0.78rem; font-weight: 600;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 20px;
+    }
+    .hero-eyebrow::before {
+      content: ''; display: block;
+      width: 28px; height: 2px;
+      background: var(--accent);
+    }
+    .hero-name {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(2.8rem, 5vw, 4.2rem);
+      line-height: 1.12;
+      color: var(--ink);
+      margin-bottom: 6px;
+    }
+    .hero-name span { color: var(--accent); font-style: italic; }
+    .hero-title {
+      font-size: 1rem; font-weight: 500;
+      color: var(--muted);
+      margin-bottom: 28px;
+      letter-spacing: 0.02em;
+    }
+    .hero-desc {
+      font-size: 1.05rem;
+      color: #4a4540;
+      max-width: 420px;
+      margin-bottom: 40px;
+      line-height: 1.8;
+    }
+    .hero-cta {
+      display: inline-block;
+      padding: 14px 32px;
+      background: var(--accent);
+      color: #fff;
+      border-radius: 6px;
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 0.9rem;
+      letter-spacing: 0.04em;
+      transition: background 0.25s, transform 0.2s;
+    }
+    .hero-cta:hover { background: #4e28a0; transform: translateY(-2px); }
+
+    .hero-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 44px 40px;
+      animation: fadeUp 0.9s 0.2s ease both;
+      position: relative;
+      z-index: 1;
+    }
+    .hero-card-label {
+      font-size: 0.72rem; font-weight: 600;
+      text-transform: uppercase; letter-spacing: 0.1em;
+      color: var(--muted); margin-bottom: 20px;
+    }
+    .stat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+    .stat-box {
+      background: var(--bg);
+      border-radius: var(--radius);
+      padding: 20px;
+      text-align: center;
+    }
+    .stat-num {
+      font-family: 'DM Serif Display', serif;
+      font-size: 2.2rem;
+      color: var(--accent);
+      line-height: 1;
+    }
+    .stat-label { font-size: 0.8rem; color: var(--muted); margin-top: 4px; }
+    .hero-uni {
+      margin-top: 24px;
+      padding-top: 24px;
+      border-top: 1px solid var(--border);
+      display: flex; align-items: center; gap: 14px;
+    }
+    .uni-dot {
+      width: 40px; height: 40px;
+      background: var(--accent);
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      color: #fff; font-weight: 700; font-size: 0.85rem;
+      flex-shrink: 0;
+    }
+    .uni-name { font-weight: 600; font-size: 0.9rem; }
+    .uni-sub { font-size: 0.78rem; color: var(--muted); }
+
+    /* ── SECTIONS ── */
+    section { padding: 100px 48px; }
+    section:nth-child(even) { background: var(--surface); }
+
+    .section-header { text-align: center; margin-bottom: 64px; }
+    .section-tag {
+      display: inline-block;
+      font-size: 0.72rem; font-weight: 600;
+      text-transform: uppercase; letter-spacing: 0.12em;
+      color: var(--accent);
+      border: 1.5px solid var(--accent);
+      padding: 4px 14px;
+      border-radius: 40px;
+      margin-bottom: 16px;
+    }
+    .section-title {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(1.9rem, 3vw, 2.7rem);
+      color: var(--ink);
+    }
+
+    /* ── ABOUT ── */
+    #about .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.4fr;
+      gap: 60px;
+      align-items: center;
+      max-width: 960px;
+      margin: 0 auto;
+    }
+    .about-aside {
+      background: var(--bg);
+      border-radius: 20px;
+      padding: 40px 32px;
+      border: 1px solid var(--border);
+    }
+    .about-aside h3 {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.5rem;
+      margin-bottom: 16px;
+      color: var(--ink);
+    }
+    .detail-row {
+      display: flex; gap: 12px;
+      padding: 10px 0;
+      border-bottom: 1px solid var(--border);
+      font-size: 0.88rem;
+    }
+    .detail-row:last-child { border-bottom: none; }
+    .detail-key { font-weight: 600; min-width: 90px; color: var(--muted); }
+    .detail-val { color: var(--ink); }
+    .about-body p {
+      font-size: 1.04rem;
+      color: #3d3830;
+      margin-bottom: 20px;
+      line-height: 1.85;
+    }
+    .about-body p:last-child { margin-bottom: 0; }
+    .highlight {
+      color: var(--accent);
+      font-weight: 600;
+    }
+
+    /* ── SKILLS ── */
+    #skills .skills-wrap { max-width: 860px; margin: 0 auto; }
+    .skill-category { margin-bottom: 48px; }
+    .skill-cat-label {
+      font-size: 0.78rem; font-weight: 600;
+      text-transform: uppercase; letter-spacing: 0.1em;
+      color: var(--muted);
+      margin-bottom: 20px;
+      display: flex; align-items: center; gap: 10px;
+    }
+    .skill-cat-label::after {
+      content: ''; flex: 1; height: 1px;
+      background: var(--border);
+    }
+    .skill-pills { display: flex; flex-wrap: wrap; gap: 12px; }
+    .pill {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 10px 20px;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      font-size: 0.88rem;
+      font-weight: 500;
+      color: var(--ink);
+      transition: border-color 0.2s, background 0.2s, transform 0.2s;
+      cursor: default;
+    }
+    .pill:hover {
+      border-color: var(--accent);
+      background: #f2edfb;
+      transform: translateY(-2px);
+    }
+    .pill-icon { font-size: 1rem; }
+
+    /* ── EXTRACURRICULAR ── */
+    #extra .extra-card {
+      max-width: 700px;
+      margin: 0 auto;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 48px;
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 32px;
+      align-items: start;
+    }
+    .extra-icon {
+      width: 64px; height: 64px;
+      background: var(--accent);
+      border-radius: 16px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 2rem;
+      flex-shrink: 0;
+    }
+    .extra-body h3 {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.6rem;
+      margin-bottom: 6px;
+    }
+    .extra-badge {
+      display: inline-block;
+      background: var(--accent);
+      color: #fff;
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 4px 12px;
+      border-radius: 40px;
+      margin-bottom: 16px;
+    }
+    .extra-body p { font-size: 0.95rem; color: #4a4540; line-height: 1.8; }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--ink);
+      color: rgba(255,255,255,0.55);
+      text-align: center;
+      padding: 40px 48px;
+      font-size: 0.83rem;
+    }
+    footer strong { color: #fff; }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(28px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 860px) {
+      nav { padding: 16px 24px; }
+      .nav-links { gap: 20px; }
+      #hero { grid-template-columns: 1fr; padding: 100px 24px 60px; }
+      section { padding: 72px 24px; }
+      #about .about-grid { grid-template-columns: 1fr; gap: 36px; }
+      #extra .extra-card { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 540px) {
+      .nav-links { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a class="nav-logo" href="#hero">R. Rivera</a>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#extra">Activities</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <section id="hero">
+    <div class="hero-text">
+      <div class="hero-eyebrow">Portfolio</div>
+      <h1 class="hero-name">Randel Redd<br><span>B. Rivera</span></h1>
+      <p class="hero-title">4th Year Information Technology Student</p>
+      <p class="hero-desc">
+        A driven and curious IT student on the final stretch of his academic journey — 
+        building skills, solving problems, and turning ideas into working solutions.
+      </p>
+      <a href="#about" class="hero-cta">View Portfolio</a>
+    </div>
+
+    <div class="hero-card">
+      <p class="hero-card-label">At a Glance</p>
+      <div class="stat-grid">
+        <div class="stat-box">
+          <div class="stat-num">4th</div>
+          <div class="stat-label">Year Level</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-num">IT</div>
+          <div class="stat-label">Program</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-num">3+</div>
+          <div class="stat-label">Years in Tech</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-num">NEU</div>
+          <div class="stat-label">University</div>
+        </div>
+      </div>
+      <div class="hero-uni">
+        <div class="uni-dot">N</div>
+        <div>
+          <div class="uni-name">New Era University</div>
+          <div class="uni-sub">College of Information Technology</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <div class="section-header reveal">
+      <div class="section-tag">About Me</div>
+      <h2 class="section-title">Who I Am</h2>
+    </div>
+    <div class="about-grid">
+      <div class="about-aside reveal">
+        <h3>Quick Details</h3>
+        <div class="detail-row">
+          <span class="detail-key">Name</span>
+          <span class="detail-val">Randel Redd B. Rivera</span>
+        </div>
+        <div class="detail-row">
+          <span class="detail-key">School</span>
+          <span class="detail-val">New Era University</span>
+        </div>
+        <div class="detail-row">
+          <span class="detail-key">Program</span>
+          <span class="detail-val">B.S. Information Technology</span>
+        </div>
+        <div class="detail-row">
+          <span class="detail-key">Year</span>
+          <span class="detail-val">4th Year</span>
+        </div>
+        <div class="detail-row">
+          <span class="detail-key">Status</span>
+          <span class="detail-val">Active Student</span>
+        </div>
+      </div>
+      <div class="about-body reveal">
+        <p>
+          I am <span class="highlight">Randel Redd B. Rivera</span>, a 4th year IT student at New Era University 
+          with an <span class="highlight">eager and relentless drive to learn</span>. My academic journey has 
+          shaped me into someone who doesn't just consume knowledge — I apply it, question it, and constantly 
+          look for ways to grow.
+        </p>
+        <p>
+          From understanding the fundamentals of programming to exploring the world of virtual machines and 
+          cybersecurity environments, I've always pushed myself to go beyond the classroom. I believe that 
+          technology is not just a career path — it's a <span class="highlight">craft worth mastering</span>.
+        </p>
+        <p>
+          As I approach the final chapter of my undergraduate journey, I am focused on strengthening my 
+          technical foundation, exploring real-world applications, and preparing to make a meaningful 
+          contribution in the IT industry.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- SKILLS -->
+  <section id="skills">
+    <div class="section-header reveal">
+      <div class="section-tag">Technical Skills</div>
+      <h2 class="section-title">What I Know</h2>
+    </div>
+    <div class="skills-wrap">
+
+      <div class="skill-category reveal">
+        <div class="skill-cat-label">Programming &amp; Web</div>
+        <div class="skill-pills">
+          <div class="pill"><span class="pill-icon">🌐</span> HTML &amp; CSS</div>
+          <div class="pill"><span class="pill-icon">🟨</span> JavaScript (Basic)</div>
+          <div class="pill"><span class="pill-icon">🐍</span> Python (Basic)</div>
+          <div class="pill"><span class="pill-icon">☕</span> Java (Basic)</div>
+          <div class="pill"><span class="pill-icon">🗃️</span> SQL (Basic)</div>
+        </div>
+      </div>
+
+      <div class="skill-category reveal">
+        <div class="skill-cat-label">Virtual Machines &amp; OS</div>
+        <div class="skill-pills">
+          <div class="pill"><span class="pill-icon">🖥️</span> VirtualBox</div>
+          <div class="pill"><span class="pill-icon">⚙️</span> VMware</div>
+          <div class="pill"><span class="pill-icon">🐉</span> Kali Linux</div>
+          <div class="pill"><span class="pill-icon">🌿</span> Linux Mint</div>
+          <div class="pill"><span class="pill-icon">🟠</span> Ubuntu</div>
+          <div class="pill"><span class="pill-icon">🪟</span> Windows OS</div>
+        </div>
+      </div>
+
+      <div class="skill-category reveal">
+        <div class="skill-cat-label">Tools &amp; Productivity</div>
+        <div class="skill-pills">
+          <div class="pill"><span class="pill-icon">📦</span> Microsoft Office Suite</div>
+          <div class="pill"><span class="pill-icon">💻</span> VS Code</div>
+          <div class="pill"><span class="pill-icon">🌐</span> Cisco Packet Tracer (Basic)</div>
+          <div class="pill"><span class="pill-icon">🎨</span> Canva</div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- EXTRACURRICULAR -->
+  <section id="extra">
+    <div class="section-header reveal">
+      <div class="section-tag">Extracurricular</div>
+      <h2 class="section-title">Beyond the Classroom</h2>
+    </div>
+    <div class="extra-card reveal">
+      <div class="extra-icon">🎮</div>
+      <div class="extra-body">
+        <h3>CODM Varsity Player</h3>
+        <span class="extra-badge">New Era University</span>
+        <p>
+          Proudly representing New Era University as a member of the official 
+          <strong>Call of Duty: Mobile (CODM) Varsity Team</strong>. Competing at the university 
+          level demands not just individual skill, but <strong>strategic thinking, 
+          communication, and teamwork under pressure</strong> — qualities that translate 
+          directly into professional and technical environments. Being part of the varsity 
+          program reflects a commitment to excellence in everything I pursue.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>&copy; 2025 <strong>Randel Redd B. Rivera</strong> &nbsp;·&nbsp; New Era University &nbsp;·&nbsp; B.S. Information Technology</p>
+    <p style="margin-top:8px;">Crafted for academic submission — Digital Portfolio</p>
+  </footer>
+
+  <script>
+    // Scroll reveal
+    const reveals = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry, i) => {
+        if (entry.isIntersecting) {
+          setTimeout(() => {
+            entry.target.classList.add('visible');
+          }, i * 80);
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12 });
+    reveals.forEach(el => observer.observe(el));
+  </script>
+</body>
+</html>
